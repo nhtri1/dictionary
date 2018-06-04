@@ -3,8 +3,8 @@ body, html {
     margin: 0;
 }
 
-.full {
-    background: url("3338558_field_6-wallpaper-1920x1080.jpg") no-repeat center center fixed;
+body {
+    background: url("background-1920x900.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -16,11 +16,43 @@ body, html {
 margin-bottom:150px;
 }
 .easy-autocomplete input {
-width:400px;
+display: inline-block;
+float:left !important;
+height:48px;
+width:753px;
+border-radius: 10px;
 }
 .Nghia{
-margin-left:300px;
-margin-top: 80px;
-color: #e20c0c;
-font-size: 20px;
+margin-top: 15px;
+font-size: 15px;
+}
+#Nghia{
+padding: 15px;
+background:white;
+width:100%;
+height:200px;
+border-radius: 10px;
+}
+#btfind{
+background-image: url('button-seach.png');
+background-repeat: no-repeat;
+border-radius: 10px;
+}
+.search{
+margin-top:20px;
+}
+.logo{
+margin-top:20px;
+margin-left:200px
+}
+footer{
+position: fixed;
+left: 0;
+bottom: 0px;
+width: 100%;
+background:white;
+float:left;
+}
+.lgfooter{
+float:right;
 }
