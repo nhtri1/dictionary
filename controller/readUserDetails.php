@@ -6,10 +6,10 @@ include("../model/db_connection.php");
 if(isset($_POST['id']) && isset($_POST['id']) != "")
 {
     // get User ID
-    $user_id = $_POST['id'];
+    $id = $_POST['id'];
 
     // Get User Details
-    $query = "SELECT * FROM users WHERE id = '$user_id'";
+    $query = "SELECT * FROM dnqatv_final WHERE id = '$id'";
     if (!$result = mysqli_query($con, $query)) {
         exit(mysqli_error($con));
     }

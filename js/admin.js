@@ -1,13 +1,13 @@
 // Add Record
 function addRecord() {
     // get values
-    var first_name = $("#first_name").val();
-    var last_name = $("#last_name").val();
+    var tu = $("#tu").val();
+    var nghia = $("#nghia").val();
 
     // Add record
     $.post("../controller/addRecord.php", {
-        first_name: first_name,
-        last_name: last_name
+        tu: tu,
+        nghia: nghia
     }, function (data, status) {
         // close the popup
         $("#add_new_record_modal").modal("hide");
@@ -16,8 +16,8 @@ function addRecord() {
         readRecords();
 
         // clear fields from the popup
-        $("#first_name").val("");
-        $("#last_name").val("");
+        $("#tu").val("");
+        $("#nghia").val("");
     });
 }
 
@@ -53,9 +53,8 @@ function GetUserDetails(id) {
             // PARSE json data
             var user = JSON.parse(data);
             // Assing existing values to the modal popup fields
-            $("#update_first_name").val(user.first_name);
-            $("#update_last_name").val(user.last_name);
-            $("#update_email").val(user.email);
+            $("#update_tu").val(user.Tu);
+            $("#update_nghia").val(user.Nghia);
         }
     );
     // Open modal popup
@@ -64,9 +63,8 @@ function GetUserDetails(id) {
 
 function UpdateUserDetails() {
     // get values
-    var first_name = $("#update_first_name").val();
-    var last_name = $("#update_last_name").val();
-    var email = $("#update_email").val();
+    var tu = $("#update_tu").val();
+    var nghia = $("#update_nghia").val();
 
     // get hidden field value
     var id = $("#hidden_user_id").val();
@@ -74,9 +72,8 @@ function UpdateUserDetails() {
     // Update the details by requesting to the server using ajax
     $.post("../controller/updateUserDetails.php", {
             id: id,
-            first_name: first_name,
-            last_name: last_name,
-            email: email
+            tu: tu,
+            nghia: nghia
         },
         function (data, status) {
             // hide modal popup

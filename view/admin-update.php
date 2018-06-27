@@ -9,13 +9,13 @@
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label for="update_first_name">Từ</label>
-                    <input type="text" id="update_first_name" placeholder="Từ Ngữ" class="form-control"/>
+                    <label for="update_tu">Từ</label>
+                    <input type="text" id="update_tu" placeholder="Từ Ngữ" class="form-control"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="update_last_name">Nghĩa</label>
-                    <input type="text" id="update_last_name" placeholder="Ngữ Nghĩa" class="form-control"/>
+                    <label for="update_nghia">Nghĩa</label>
+                    <input type="text" id="update_nghia" placeholder="Ngữ Nghĩa" class="form-control"/>
                 </div>
 
 

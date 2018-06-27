@@ -11,8 +11,16 @@
 							<th>Update</th>
 							<th>Delete</th>
 						</tr>';
-
-	$query = "SELECT * FROM users";
+$record_per_page = 2;
+$page            = '';
+$output          = '';
+if (isset($_POST["page"])) {
+    $page = $_POST["page"];
+} else {
+    $page = 1;
+}
+$start_from = ($page - 1) * $record_per_page;
+$query  = "SELECT * FROM dnqatv_final ORDER BY id DESC LIMIT $start_from, $record_per_page";
 
 	if (!$result = mysqli_query($con, $query)) {
         exit(mysqli_error($con));
@@ -26,13 +34,13 @@
     	{
     		$data .= '<tr>
 				<td>'.$number.'</td>
-				<td>'.$row['first_name'].'</td>
-				<td>'.$row['last_name'].'</td>
+				<td>'.$row['Tu'].'</td>
+				<td>'.$row['Nghia'].'</td>
 				<td>
-					<button onclick="GetUserDetails('.$row['id'].')" class="btn btn-warning">Update</button>
+					<button onclick="GetUserDetails('.$row['ID'].')" class="btn btn-warning">Update</button>
 				</td>
 				<td>
-					<button onclick="DeleteUser('.$row['id'].')" class="btn btn-danger">Delete</button>
+					<button onclick="DeleteUser('.$row['ID'].')" class="btn btn-danger">Delete</button>
 				</td>
     		</tr>';
     		$number++;
@@ -43,8 +51,17 @@
     	// records now found 
     	$data .= '<tr><td colspan="6">Records not found!</td></tr>';
     }
+	    $data .= '</table>';
 
-    $data .= '</table>';
+$data .= '</table><br /><div align="center">';
+$page_query    = "SELECT * FROM dnqatv_final ORDER BY ID DESC";
+$page_result   = mysqli_query($con, $page_query);
+$total_records = mysqli_num_rows($page_result);
+$total_pages   = ceil($total_records / $record_per_page);
+for ($i = 1; $i <= $total_pages; $i++) {
+    $data .= "<span class='pagination_link' style='cursor:pointer; padding:6px; border:1px solid #ccc;' id='" . $i . "'>" . $i . "</span>";
+}
+$data .= '</div><br /><br />';
 
     echo $data;
 ?>

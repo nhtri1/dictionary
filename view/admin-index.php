@@ -11,6 +11,7 @@
 
 <!-- Content Section -->
 <div class="container">
+<div class="table-responsive" id="pagination_data">  
     <div class="row">
         <div class="col-md-12">
             <h1>Demo: PHP and MySQL CRUD Operations using Jquery</h1>
@@ -30,6 +31,8 @@
             <div class="records_content"></div>
         </div>
     </div>
+                
+                </div>  
 </div>
 <!-- /Content Section -->
 
@@ -46,13 +49,13 @@
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label for="first_name">Từ Ngữ</label>
-                    <input type="text" id="first_name" placeholder="Từ Ngữ" class="form-control"/>
+                    <label for="tu">Từ Ngữ</label>
+                    <input type="text" id="tu" placeholder="Từ Ngữ" class="form-control"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="last_name">Ngữ Nghĩa</label>
-                    <input type="text" id="last_name" placeholder="Ngữ Nghĩa" class="form-control"/>
+                    <label for="nghia">Ngữ Nghĩa</label>
+                    <input type="text" id="nghia" placeholder="Ngữ Nghĩa" class="form-control"/>
                 </div>
 
                 
@@ -78,13 +81,13 @@
             <div class="modal-body">
 
                 <div class="form-group">
-                    <label for="update_first_name">Từ</label>
-                    <input type="text" id="update_first_name" placeholder="Từ Ngữ" class="form-control"/>
+                    <label for="update_tu">Từ</label>
+                    <input type="text" id="update_tu" placeholder="Từ Ngữ" class="form-control"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="update_last_name">Nghĩa</label>
-                    <input type="text" id="update_last_name" placeholder="Ngữ Nghĩa" class="form-control"/>
+                    <label for="update_nghia">Nghĩa</label>
+                    <input type="text" id="update_nghia" placeholder="Ngữ Nghĩa" class="form-control"/>
                 </div>
 
                 
