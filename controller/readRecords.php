@@ -14,8 +14,8 @@ $perPage = new PerPage();
 							<th>Update</th>
 							<th>Delete</th>
 						</tr>';
-$sql = "SELECT * from dnqatv_final";
-$paginationlink = "../controller/getresult.php?page=";	
+$sql = "SELECT ID, Tu, Nghia from dnqatv_final";
+$paginationlink = "../controller/readRecords.php?page=";	
 $pagination_setting = "all-link";
 				
 $page = 1;
@@ -28,7 +28,6 @@ if($start < 0) $start = 0;
 
 $query =  $sql . " limit " . $start . "," . $perPage->perpage; 
 $faq = $db_handle->runQuery($query);
-ECHO $query;
 if(empty($_GET["rowcount"])) {
 $_GET["rowcount"] = $db_handle->numRows($sql);
 }

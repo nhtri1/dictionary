@@ -1,4 +1,10 @@
-﻿<script>
+﻿<?php
+session_start();
+if(!isset($_SESSION['myusername'])){
+header("location:../security/");
+}
+?>
+<script>
 function getresult(url) {
 	$.ajax({
 		url: url,
@@ -6,7 +12,7 @@ function getresult(url) {
 		data:  {rowcount:$("#rowcount").val(),"pagination_setting":$("#pagination-setting").val()},
 		beforeSend: function(){$("#overlay").show();},
 		success: function(data){
-		$("#records_content").html(data);
+		$(".records_content").html(data);
 		setInterval(function() {$("#overlay").hide(); },500);
 		},
 		error: function() 
@@ -15,19 +21,18 @@ function getresult(url) {
 }
 function changePagination(option) {
 	if(option!= "") {
-		getresult("../controller/getresult.php");
+		getresult("../controller/readRecords.php");
 	}
 }
 </script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>PHP and MySQL CRUD Operations Demo</title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Administrator Page</title>
       <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <style>
-.link {border:#bccfd8 1px solid;cursor:pointer;color:#607d8b}
+.link {background: transparent;border:#bccfd8 1px solid;border-left:0px;cursor:pointer;color:#607d8b}
 .disabled {cursor:not-allowed;color: #bccfd8;}
 .current {background: #bccfd8;}
 .first{border-left:#bccfd8 1px solid;}
@@ -40,13 +45,11 @@ function changePagination(option) {
 <div class="table-responsive" id="pagination_data">  
     <div class="row">
         <div class="col-md-12">
-            <h1>Demo: PHP and MySQL CRUD Operations using Jquery</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
             <div class="pull-right">
                 <button class="btn btn-success" data-toggle="modal" data-target="#add_new_record_modal">Add New Record</button>
+            </div>
+			 <div class="pull-left">
+                <button class="btn btn-danger" data-toggle="modal" onclick="logoutFunction();">Log out</button>
             </div>
         </div>
     </div>
@@ -85,9 +88,6 @@ function changePagination(option) {
                     <label for="nghia">Ngữ Nghĩa</label>
                     <input type="text" id="nghia" placeholder="Ngữ Nghĩa" class="form-control"/>
                 </div>
-
-                
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -115,7 +115,7 @@ function changePagination(option) {
 
                 <div class="form-group">
                     <label for="update_nghia">Nghĩa</label>
-                    <input type="text" id="update_nghia" placeholder="Ngữ Nghĩa" class="form-control"/>
+                    <input type="text" id="update_nghia" placeholder="Ngữ Nghĩa" class="form-control" accept-charset="ISO-8859-1"/>
                 </div>
 
                 
@@ -138,7 +138,8 @@ function changePagination(option) {
 <!-- Custom JS file -->
 <script type="text/javascript" src="../js/admin.js"></script>
 <script>
-getresult("../controller/getresult.php");
+function logoutFunction(){
+ document.location = '../controller/logout.php';}
 </script>
 </body>
 </html>

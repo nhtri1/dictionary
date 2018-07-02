@@ -31,9 +31,11 @@ if($count==1){
 session_start();
 $_SESSION['myusername']= $myusername;
 $_SESSION['mypassword']= $mypassword; 
-header("location:login_success.php");
+header("location:../view/admin-index.php");
 }
 else {
-echo "Wrong Username or Password";
+session_start();
+$_SESSION['notfound']= 'true';
+header("location:../view/not-found.php");
 }
 ?>
