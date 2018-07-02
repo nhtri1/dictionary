@@ -1,9 +1,12 @@
 <?php
+require_once("dbcontroller.php");
+require_once("pagination.class.php");
+$db_handle = new DBController();
+$perPage = new PerPage();
 	// include Database connection file 
-	include("../model/db_connection.php");
 
 	// Design initial table header 
-	$data = '<table class="table table-bordered table-striped">
+	$data = '<table class="table">
 						<tr>
 							<th>No.</th>
 							<th>Từ</th>
@@ -11,57 +14,57 @@
 							<th>Update</th>
 							<th>Delete</th>
 						</tr>';
-$record_per_page = 2;
-$page            = '';
-$output          = '';
-if (isset($_POST["page"])) {
-    $page = $_POST["page"];
-} else {
-    $page = 1;
+$sql = "SELECT * from dnqatv_final";
+$paginationlink = "../controller/getresult.php?page=";	
+$pagination_setting = "all-link";
+				
+$page = 1;
+if(!empty($_GET["page"])) {
+$page = $_GET["page"];
 }
-$start_from = ($page - 1) * $record_per_page;
-$query  = "SELECT * FROM dnqatv_final ORDER BY id DESC LIMIT $start_from, $record_per_page";
 
-	if (!$result = mysqli_query($con, $query)) {
-        exit(mysqli_error($con));
-    }
+$start = ($page-1)*$perPage->perpage;
+if($start < 0) $start = 0;
+
+$query =  $sql . " limit " . $start . "," . $perPage->perpage; 
+$faq = $db_handle->runQuery($query);
+ECHO $query;
+if(empty($_GET["rowcount"])) {
+$_GET["rowcount"] = $db_handle->numRows($sql);
+}
+
+if($pagination_setting == "prev-next") {
+	$perpageresult = $perPage->getPrevNext($_GET["rowcount"], $paginationlink,$pagination_setting);	
+} else {
+	$perpageresult = $perPage->getAllPageLinks($_GET["rowcount"], $paginationlink,$pagination_setting);	
+}
+
+
 
     // if query results contains rows then featch those rows 
-    if(mysqli_num_rows($result) > 0)
-    {
     	$number = 1;
-    	while($row = mysqli_fetch_assoc($result))
+    	foreach($faq as $k=>$v)
     	{
     		$data .= '<tr>
 				<td>'.$number.'</td>
-				<td>'.$row['Tu'].'</td>
-				<td>'.$row['Nghia'].'</td>
+				<td>'.$faq[$k]["Tu"].'</td>
+				<td>'.$faq[$k]["Nghia"].'</td>
 				<td>
-					<button onclick="GetUserDetails('.$row['ID'].')" class="btn btn-warning">Update</button>
+					<button onclick="GetUserDetails('.$faq[$k]["ID"].')" class="btn btn-warning">Update</button>
 				</td>
 				<td>
-					<button onclick="DeleteUser('.$row['ID'].')" class="btn btn-danger">Delete</button>
+					<button onclick="DeleteUser('.$faq[$k]["ID"].')" class="btn btn-danger">Delete</button>
 				</td>
     		</tr>';
     		$number++;
     	}
-    }
-    else
-    {
-    	// records now found 
-    	$data .= '<tr><td colspan="6">Records not found!</td></tr>';
-    }
+    
 	    $data .= '</table>';
 
 $data .= '</table><br /><div align="center">';
-$page_query    = "SELECT * FROM dnqatv_final ORDER BY ID DESC";
-$page_result   = mysqli_query($con, $page_query);
-$total_records = mysqli_num_rows($page_result);
-$total_pages   = ceil($total_records / $record_per_page);
-for ($i = 1; $i <= $total_pages; $i++) {
-    $data .= "<span class='pagination_link' style='cursor:pointer; padding:6px; border:1px solid #ccc;' id='" . $i . "'>" . $i . "</span>";
+if(!empty($perpageresult)) {
+$data .= '<div id="pagination">' . $perpageresult . '</div>';
 }
-$data .= '</div><br /><br />';
+print $data;
 
-    echo $data;
 ?>

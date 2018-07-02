@@ -1,11 +1,37 @@
-﻿<!DOCTYPE html>
+﻿<script>
+function getresult(url) {
+	$.ajax({
+		url: url,
+		type: "GET",
+		data:  {rowcount:$("#rowcount").val(),"pagination_setting":$("#pagination-setting").val()},
+		beforeSend: function(){$("#overlay").show();},
+		success: function(data){
+		$("#records_content").html(data);
+		setInterval(function() {$("#overlay").hide(); },500);
+		},
+		error: function() 
+		{} 	        
+   });
+}
+function changePagination(option) {
+	if(option!= "") {
+		getresult("../controller/getresult.php");
+	}
+}
+</script>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>PHP and MySQL CRUD Operations Demo</title>
 
       <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-
+<style>
+.link {border:#bccfd8 1px solid;cursor:pointer;color:#607d8b}
+.disabled {cursor:not-allowed;color: #bccfd8;}
+.current {background: #bccfd8;}
+.first{border-left:#bccfd8 1px solid;}
+</style>
 </head>
 <body>
 
@@ -27,9 +53,11 @@
     <div class="row">
         <div class="col-md-12">
             <h3>Records:</h3>
-
-            <div class="records_content"></div>
+            <div class="records_content">
+			<input type="hidden" name="rowcount" id="rowcount" />
+			</div>
         </div>
+
     </div>
                 
                 </div>  
@@ -109,5 +137,8 @@
 
 <!-- Custom JS file -->
 <script type="text/javascript" src="../js/admin.js"></script>
+<script>
+getresult("../controller/getresult.php");
+</script>
 </body>
 </html>
